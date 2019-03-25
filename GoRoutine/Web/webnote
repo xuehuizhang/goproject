@@ -1,0 +1,96 @@
+http请求方法
+    1，Get  常用
+    2，Post 常用
+    3, Put  创建资源
+    4, Delete  删除
+    5, Head   做监控用
+        	    c:=http.Client{
+        			Transport:&http.Transport{
+        				Dial: func(network, addr string) (conn net.Conn, e error) {
+        					timeOut:=time.Microsecond*2  //自己指定超时时间
+        					return net.DialTimeout(network,addr,timeOut)
+        				},
+        			},
+        		}
+                //用自己生成一个客户端请求
+        		res,err:=c.Head(v)
+
+http状态码：
+
+表单处理：
+    request.ParseForm
+    request.FormValue("键值")
+
+panic处理
+
+模板Template
+    语法：{{}}
+    if语句
+    range循环
+    gt 大于
+    .....c
+
+MySql:
+
+日志收集系统：
+    ELK方案的缺陷：
+        1，运维成本高，每增加一个日志收集，都需要手动改配置
+        2，监控缺失，无法准确获取logstash的状态
+        3，无法做定制开发和维护
+
+    自己开发日志系统
+        etcd--->logAgent---->kafka--->1,hadoop  2, es  3, storm
+        1,logAgent  日志收集客户端，在需要记录日志的服务器上部署日志客户端
+        2,kafka     高吞吐的分布式队列 为啥使用kafka?
+            1,松耦合，以后再有需要接入新的业务，可以直接对接kafka，不需要修改logAgent
+        3,etcd  配置管理  对应一个web管理  用于管理配置文件
+        4,es  elasticsearch  开源搜索引擎，提供基于http restful的web接口
+        5，hadoop,分布式计算框架  处理大量数据
+        6，storm 实时计算框架
+
+    kafka应用场景：
+        1，异步处理，把非关键流程异步化，提高系统的响应时间和健壮性 发邮件/短信  发送失败可以多次重试
+        2，应用解耦，谁想使用数据，就直接在kafka中取
+        3，流量削峰，抢购：通过消息队列进行排队处理  1000条 1000条的发给后端
+
+    zookeeper应用场景：
+        1，服务注册和服务发现
+            服务提供者注册服务到注册中心（zk）
+            服务注册中心通知服务消费者发生变更
+            服务消费者获取服务注册信息
+          优势：
+            免去了服务提供者增加服务时，需要逐个去配置
+            解决自动化问题，不然还的手动配置
+            当服务提供方服务挂掉，会通过注册中心自动通知服务消费方
+        2，配置中心
+            web平台配置放到zk中，当web平台配置发生变化，会自动通知业务应用层
+
+        3，分布式锁
+            zk是强一致的
+            多个客户端同时在zk上创建相同znode,只有一个创建成功
+
+    kafka应用：
+        1，同步：直接把消息发送到kafka中
+        2，异步：先把消息发送到一个管道中，在发送到kafka中
+
+    tail应用：
+
+    配置：
+        yaml
+        ini
+        xml
+
+    日志库
+        beego/Logs
+
+项目设计：
+    log agent设计：    占用系统资源必须最小
+        kafka  解耦
+        config 配置文件配置
+        tail   日志读取
+        log    日志模块
+
+    日志级别
+
+    热加载：
+    热升级：

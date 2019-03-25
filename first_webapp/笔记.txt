@@ -1,0 +1,24 @@
+1，配置好 GOPATH路径，在此路径下创建src目录用于当项目容器
+2，在任何目录下执行go install first_webapp,会在GOPATH路径下的bin路径下生成.exe可执行文件
+3，go web应用程序不同于其他语言编写的web应用，其他语言通常需要将web应用部署到web应用服务器
+    上，由web 服务器提供运行环境，但是go web应用的运行环境由net/http包直接提供，这个包和应用
+    的源代码会一起被编译成一个可以快速部署的独立web应用。
+
+4，理解多路复用器，处理器，处理器函数
+    1, go语言中会使用处理器函数将函数 f 转换成一个实现了ServerHttp方法的处理器handler
+    2, go语言中一个处理器就是一个拥有ServerHTTP方法的接口
+    3，DefaultServeMux多路复用器是ServeMux结构的一个实例，而ServeMux也拥有前面提到的
+        ServeHTTP方法，并且方法的签名和成为处理器所需的签名完全一致，换句话说，DefaultServeMux
+        即是ServeMux的实例，也是Handler的实例，但是DefaultServeMux与其他的处理器不一样，她负责根据
+        不同的URL将请求重定向不同的处理器。
+    4，可以使用多个处理器处理不同的URL请求，也就是第3点提到的。
+    5，处理器函数：处理器函数拥有与ServeHTTP方法相同的签名。
+    6，处理器函数的原理
+
+
+    注意：处理请求时：仅限处理器函数，处理器只能用http.Handle
+        1，可以自己指定多路复用器，使用mux.HandleFunc
+        2，也可以使用默认的多路复用器，使用Http.HandleFunc
+        3，mux.Handle() 与 http.Handle() 底层代码是一样的（查看源码）
+
+

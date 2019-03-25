@@ -1,0 +1,76 @@
+任务一：
+1，配置环境变量
+2，安装beego bee
+    1, go get github.com/astaxie/beego
+    2, go get github.com/beego/bee
+    3, bee 可执行文件默认存放在 $GOPATH/bin 里面，所以您需要把 $GOPATH/bin 添加到您的环境变量中
+    4, 如果你本机设置了 GOBIN，那么上面的命令就会安装到 GOBIN 下，请添加 GOBIN 到你的环境变量中
+
+3, 创建web项目  bee new applyname
+4, 启动项目 到项目路径下执行  bee run
+5, GET/POST请求
+
+6，ORM框架：对象关系映射
+    1，通过结构体对象操作数据库表
+    2，可以根据结构体对象生成数据库表
+    3, orm 增删改查操作
+
+
+7, 案例
+    1，注册
+    2，登录
+    3, c.TplName 与 c.Redirect区别
+        1，c.TplName  需要传递数据时使用
+        2，不需要传递数据使用，速度快
+
+总结1：
+    1，beego: go语言开发的web框架
+    2，MVC:  M: 数据库相关  V: 视图   C: 业务相关
+    3，路由设置：routers中    项目运行，分析
+    4，设置了请求定义的方法，将不再去访问默认的Get/Post方法（重点）
+    5，ORM介绍
+    6，两个跳转函数区别
+
+任务二：
+
+总结二：
+    1，代码移植
+    2，数据库字段的属性设置
+        1，设置主键pk
+        2，自增
+        3，全局唯一unique
+        4，设置允许为null
+        5，设置长度 size
+        6，设置默认值default
+        7，浮点数精度 digits(12);decimal(4)
+        8，设置时间   date  datetime   time.time  type(date)/type(datetime)
+            auto_now  auto_now_add
+
+    3,getstring()  获取表单传过来的数据
+
+    4，静态文件上传   注意：1  前端内容  form一定要设置 enctype="multipart/form-data"
+                            2  注意上传文件的一个处理  f,h,err :=getfile()   defer.close()
+                              文件判断  类型  大小  文件名重复
+
+    5，视图语法   循环  range  .articles
+
+    6，URL传值  在路由中不会匹配url中的内容  获取url中的方法 getInt()
+
+总结三：
+    1，Cookie
+    2，Session
+    3，一对多添加，一对多查询，多对多添加，多对多查询（重点） 建议写原生sql  或者使用gorm
+    4，视图函数
+    5，range 语法  if语法
+    6，range循环中  $.字段名
+    7，模板布局
+    8，文件上传
+
+go语言：
+    1，编译时类型检查
+    2，编译成机器码
+    3，面向接口编程，函数式编程，并发编程
+    4，采用csp并发模型，不需要锁  callback  底层仍需要
+
+go并发：
+    1，深入理解
